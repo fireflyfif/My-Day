@@ -1,4 +1,4 @@
-package com.example.android.myapplication.data;
+package com.example.android.myday.data;
 
 import android.provider.BaseColumns;
 

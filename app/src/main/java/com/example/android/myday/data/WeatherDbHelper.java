@@ -1,10 +1,10 @@
-package com.example.android.myapplication.data;
+package com.example.android.myday.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.myapplication.data.WeatherContract.WeatherEntry;
+import com.example.android.myday.data.WeatherContract.WeatherEntry;
 
 
 /**

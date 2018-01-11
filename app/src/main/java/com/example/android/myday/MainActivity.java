@@ -1,4 +1,4 @@
-package com.example.android.myapplication;
+package com.example.android.myday;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
