@@ -3,7 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.myday.MainActivity">
+    tools:context="com.example.android.myday.ui.MainActivity">
+
+    <TextView
+        android:id="@+id/long_time_in_millis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="10000000"
+        android:padding="20dp"
+        android:layout_gravity="center"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView_weather"
@@ -11,5 +19,12 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="8dp" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
 </FrameLayout>

@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * OpenWeatherMap JSON data
@@ -26,13 +28,14 @@ public class OpenWeatherJsonUtils {
     /*
     Location coordinates
      */
-    private static final String OWM_LATTITUDE = "lat";
+    private static final String OWM_LATITUDE = "lat";
     private static final String OWM_LONGITUDE = "lon";
 
     /*
     Forecast information, where the "list" is an Array with all days
      */
     private static final String OWM_LIST = "list";
+    private static final String OWM_DATE = "dt";
 
     private static final String OWM_PRESSURE = "pressure";
     private static final String OWM_HUMIDITY = "humidity";
@@ -88,7 +91,7 @@ public class OpenWeatherJsonUtils {
         JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
 
         JSONObject cityCoord = cityJson.getJSONObject(OWM_COORDINATES);
-        double cityLatitude = cityCoord.getDouble(OWM_LATTITUDE);
+        double cityLatitude = cityCoord.getDouble(OWM_LATITUDE);
         double cityLongitude = cityCoord.getDouble(OWM_LONGITUDE);
 
         // TODO Preferences by city
@@ -100,10 +103,13 @@ public class OpenWeatherJsonUtils {
         (e.g. 1515768100)
         TODO Format the weather information into human-readable format
          */
-        //long normalizedUtcDay =
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        String date = dateFormat.format(new Date(cityJson.getLong(OWM_DATE)*1000));
+
 
         for (int i = 0; i < jsonWeatherArray.length(); i++) {
 
+            String dateTime;
             double pressure;
             int humidity;
             double windSpeed;
@@ -120,6 +126,8 @@ public class OpenWeatherJsonUtils {
             JSONObject dayForecast = jsonWeatherArray.getJSONObject(i);
 
             // TODO Get the date in normalized format
+            // !!! Not sure if it's working !!!
+            dateTime = dayForecast.getString(date);
 
             pressure = dayForecast.getDouble(OWM_PRESSURE);
             humidity = dayForecast.getInt(OWM_HUMIDITY);
@@ -142,7 +150,8 @@ public class OpenWeatherJsonUtils {
             lowTemp = temperatureObject.getDouble(OWM_TEMPERATURE_MIN);
             
             ContentValues weatherValues = new ContentValues();
-            // TODO Add the date object here
+            // COMPLETED Add the date object here
+            weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DATE, dateTime);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY, humidity);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE, pressure);
             weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED, windSpeed);
